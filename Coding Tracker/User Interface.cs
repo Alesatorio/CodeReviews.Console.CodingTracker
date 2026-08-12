@@ -15,14 +15,15 @@ namespace Coding_Tracker
 
             do
             {
+                Console.Clear();
+
                 Console.WriteLine(@"
                     Menu:
 
-                1 - Insert Start Time
-                2 - Insert End Time
-                3 - Delete Record
-                4 - Update Record
-                5 - View All Coding Sessions Duration
+                1 - Insert Start Time & End Time
+                2 - Delete Record
+                3 - Update Record
+                4 - View All Coding Sessions Duration
                 0 - Exit");
 
                 Console.WriteLine("\nMenu Selection: ");
@@ -31,7 +32,7 @@ namespace Coding_Tracker
                 switch (selection)
                 {
                     case "1":
-
+                        timeRecords.insertionOfStartTimeEndTime(connectionString);
                         break;
                     case "2":
 
@@ -40,7 +41,7 @@ namespace Coding_Tracker
 
                         break;
                     case "4":
-
+                        timeRecords.viewTimeRecords(connectionString);
                         break;
                     case "0":
                         Console.WriteLine("Exiting...");

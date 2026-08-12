@@ -16,7 +16,7 @@ internal class DataBase
 
             connection.Execute(@"CREATE TABLE IF NOT EXISTS coding_tracker (
             Id Integer PRIMARY KEY AUTOINCREMENT, 
-            StartTime Text, 
+            StartTime Text,
             EndTime Text,
             Duration Text)");
 
