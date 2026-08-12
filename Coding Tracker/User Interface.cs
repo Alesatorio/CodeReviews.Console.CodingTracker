@@ -6,7 +6,7 @@ namespace Coding_Tracker
     {
         internal void menuOptions(string connectionString)
         {
-            var timeRecords = new Records_Control();
+            var timeRecords = new Records_Control(connectionString);
 
             bool closeApp = false;
 

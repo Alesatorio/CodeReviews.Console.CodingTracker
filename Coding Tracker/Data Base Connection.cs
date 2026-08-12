@@ -7,15 +7,8 @@ namespace Data_Coding_Tracker;
 internal class DataBase
 {
     
-    internal void configuringDataBase()
+    internal void configuringDataBase(string? connectionString)
     {
-        var builder = new ConfigurationBuilder()
-        .SetBasePath(Directory.GetCurrentDirectory()) // get the current file where is being compiled
-        .AddJsonFile("appsettings.json"); // add this specific file and interpret it as json file
-
-        var config = builder.Build(); // stores the configs set
-
-        string? connectionString = config["connectionString"];
 
         using (var connection = new SqliteConnection((connectionString)))
         {
