@@ -4,7 +4,10 @@ using Data_Coding_Tracker;
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Specialized;
+using Coding_Tracker.Helpers.TypeHandler;
+using Dapper;
 
+SqlMapper.AddTypeHandler(new TypeHandler());
 
 var builder = new ConfigurationBuilder()
         .SetBasePath(Directory.GetCurrentDirectory()) // get the current file where is being compiled
@@ -16,6 +19,8 @@ string? connectionString = config["connectionString"];
 
 var initializeDataBase = new DataBase();
 initializeDataBase.configuringDataBase(connectionString);
+
+
 
 var initializeMenu = new User_Interface();
 initializeMenu.menuOptions(connectionString);

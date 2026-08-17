@@ -1,9 +1,9 @@
-﻿using Coding_Tracker;
-using Dapper;
+﻿using Dapper;
 using Microsoft.Data.Sqlite;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Globalization;
 
-namespace Coding_Tracker.Helpers
+namespace Coding_Tracker.Helpers.UserInput
 {
     internal class Records_Control
     {
@@ -15,18 +15,18 @@ namespace Coding_Tracker.Helpers
         }
 
 
-        internal static TimeSpan getHour()
+        internal static DateTime getHourDate()
         {
-            string? stringHour = Console.ReadLine();
-            TimeSpan hour;
+            string? stringInput = Console.ReadLine();
+            DateTime validDate;
 
-            while (string.IsNullOrEmpty(stringHour) || !TimeSpan.TryParse(stringHour, out hour))
+            while (string.IsNullOrEmpty(stringInput) || !DateTime.TryParseExact(stringInput, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out validDate))
             {
-                Console.WriteLine("Invalid Format Hour. Try Again! Insert like Ex: 14:30");
-                stringHour = Console.ReadLine();
+                Console.WriteLine("Invalid Format Hour. Try Again! Insert like Ex: 17/08/2026 11:30");
+                stringInput = Console.ReadLine();
             }
 
-            return hour;
+            return validDate;
         }
 
 
@@ -34,12 +34,12 @@ namespace Coding_Tracker.Helpers
         {
             // getting the start & end hours
 
-            Console.WriteLine("Insert the beginning hour (ex: 13:30) : ");
-            TimeSpan startHour;
-            startHour = getHour();
+            Console.WriteLine("Insert the beginning hour (ex: 17/08/2026 13:30) : ");
+            DateTime startHour;
+            startHour = getHourDate();
 
-            Console.WriteLine("Insert the final hour (ex: 17:00) : ");
-            TimeSpan finalHour = getHour();
+            Console.WriteLine("Insert the final hour (ex: 17/08/2026 17:30) : ");
+            DateTime finalHour = getHourDate();
 
             // duration holds the time that passed
             TimeSpan duration = finalHour - startHour;
@@ -56,13 +56,14 @@ namespace Coding_Tracker.Helpers
 
                 connection.Execute(insertQuery, new
                 {
-                    Start = startHour.ToString(),
-                    End = finalHour.ToString(),
-                    Dur = duration.ToString()
+                    Start = startHour,
+                    End = finalHour,
+                    Dur = duration
                 });
             }
 
-            Console.WriteLine("\nRecord inserted successfully!");
+            Console.WriteLine("\nRecord inserted successfully! Press Enter");
+            Console.ReadKey();
         }
 
         internal void viewTimeRecords(string connectionString)
@@ -81,6 +82,9 @@ namespace Coding_Tracker.Helpers
                 {
                     Console.WriteLine($@"{session.Id} - Starting Code Time: {session.StartTime} - End Code Time: {session.EndTime} - Duration Session: {session.Duration}");
                 }
+
+                Console.WriteLine("\nPress Enter");
+                Console.ReadKey();
 
             }
 

@@ -1,4 +1,4 @@
-﻿using Coding_Tracker.Helpers;
+﻿using Coding_Tracker.Helpers.UserInput;
 
 namespace Coding_Tracker
 {
