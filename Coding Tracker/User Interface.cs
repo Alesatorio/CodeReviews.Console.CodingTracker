@@ -34,15 +34,19 @@ namespace Coding_Tracker
                     case "1":
                         timeRecords.insertionOfStartTimeEndTime(connectionString);
                         break;
-                    case "2":
 
+                    case "2":
+                        timeRecords.deleteSession(connectionString);
                         break;
+
                     case "3":
 
                         break;
+
                     case "4":
                         timeRecords.viewTimeRecords(connectionString);
                         break;
+
                     case "0":
                         Console.WriteLine("Exiting...");
                         closeApp = true;

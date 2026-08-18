@@ -2,6 +2,7 @@
 using Microsoft.Data.Sqlite;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Globalization;
+using Coding_Tracker.Helpers.UserValidation;
 
 namespace Coding_Tracker.Helpers.UserInput
 {
@@ -70,7 +71,7 @@ namespace Coding_Tracker.Helpers.UserInput
         {
             Console.Clear();
 
-            using (var connection = new SqliteConnection(connectionString)) // using 
+            using (var connection = new SqliteConnection(connectionString))
             {
                 connection.Open();
 
@@ -90,6 +91,39 @@ namespace Coding_Tracker.Helpers.UserInput
 
 
         }
+
+        internal void deleteSession (string connectionString)
+        {
+            Console.Clear();
+            viewTimeRecords(connectionString);
+
+            InputTestsValidation numTests = new InputTestsValidation();
+
+            Console.WriteLine("\nSelect the ID to delete: ");
+            int idSelected = numTests.getNum();
+
+            using (var connection = new SqliteConnection(connectionString))
+            {
+                connection.Open();
+
+                string deleteQuery = "DELETE FROM coding_tracker WHERE Id = @Id";
+
+                int rowsAffected = connection.Execute(deleteQuery, new { Id = idSelected });
+
+                if (rowsAffected == 0)
+                {
+                    Console.WriteLine($"\nThe Record Id {idSelected} doesn't exist. Press Enter.");
+                    Console.ReadKey();
+                }
+                else
+                {
+                    Console.WriteLine($"\nRecord {idSelected} deleted successfully! Press Enter.");
+                    Console.ReadKey();
+                }
+            }
+        }
+
+
     }
 }
 
